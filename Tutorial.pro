@@ -23,3 +23,8 @@ HEADERS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+DISTFILES += \
+    ../../../Assignment 2 - Game/chicken.png \
+    ../../../Assignment 2 - Game/red_laser.png \
+    ../../../Assignment 2 - Game/ship.png

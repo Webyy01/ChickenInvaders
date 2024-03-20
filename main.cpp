@@ -24,7 +24,6 @@ int main(int argc, char *argv[])
 
     // *******  Create the Player ********
     Player* player = new Player();
-    player->setRect(0,0,50,70);
     scene->addItem(player);
 
     // *******  Setting the foucs to the Player ********

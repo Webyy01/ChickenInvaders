@@ -4,8 +4,10 @@
 #include <QGraphicsScene>
 #include <QDebug>
 #include "enemy.h"
+
 Player::Player() {
 
+    setPixmap(QPixmap("C://Users//omars//Downloads//session 5 - game - Exercise_template//session 5 - game - Exercise_template//session 5 - game - Exercise//ship.png"));
 }
 
 void Player::keyPressEvent(QKeyEvent *event)

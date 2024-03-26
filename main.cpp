@@ -3,45 +3,67 @@
 #include <QGraphicsRectItem>
 #include <QGraphicsScene>
 #include<QGraphicsView>
-#include "player.h"
+#include "ship.h"
 #include <QTimer>
 #include <QDebug>
 #include <QBrush>
+#include "stats.h"
+#include "spawn.h"
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    // *******  Create the View ********
-    QGraphicsView* view = new QGraphicsView();
-    view->setFixedSize(800,600);
+    // Create scene
+    QGraphicsScene * scene = new QGraphicsScene();
 
-    // ******* Create the Scene ********
-    QGraphicsScene* scene = new QGraphicsScene();
-    scene->setSceneRect(0,0,800,800);
+    // Add ship tp the scene
+    QGraphicsPixmapItem * player = new Ship();
+
+
+    // Add player to scene
+    scene-> addItem(player);
+
+    // Remove scroll bars
+    QGraphicsView * view = new QGraphicsView(scene);
     view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
-    // *******  Create the Player ********
-    Player* player = new Player();
-    scene->addItem(player);
-
-    // *******  Setting the foucs to the Player ********
+    // Make player focusable
     player->setFlag(QGraphicsItem::ItemIsFocusable);
     player->setFocus();
 
-    // *******  Adjust the location of the Player (middle of the screen) ********
-    player->setPos(view->width()/2, 630);
-
-   // *******   Assign scene to the view   ***************
-    view->setScene(scene);
+    // Show the view
     view->show();
+    view->setFixedSize(800,600);
+    scene->setSceneRect(0,0,800,600);
+    QPixmap bgImage(":/img/spaceBackground.png");
+    scene->setBackgroundBrush(bgImage.scaled(scene->width(),scene->height(),Qt::IgnoreAspectRatio,Qt::SmoothTransformation));
 
-    // *******  Create the Enemies automatically ********
-    QTimer * time = new QTimer();
-    QObject::connect(time, SIGNAL(timeout()),player,SLOT(createEnemy()));
-    time->start(2000);
+    // Set pos of player
+    player->setPos(view->width()/2,view->height() - player->pixmap().height());
 
+    QGraphicsTextItem* scoreText = new QGraphicsTextItem();
+    QGraphicsTextItem* healthText = new QGraphicsTextItem();
+
+    scene->addItem(scoreText);
+    scene->addItem(healthText);
+
+    Stats::setHealthText(healthText);
+    Stats::setScoreText(scoreText);
+
+    // Spawn
+    Spawn spawn(scene);
+
+    /*
+    QAudioOutput* audioOutput = new QAudioOutput();
+    QMediaPlayer* soundEffect = new QMediaPlayer();
+    soundEffect->setSource(QUrl("qrc:/sounds/sounds/soundtrack.mp3"));
+    soundEffect->setAudioOutput(audioOutput);
+    audioOutput->setVolume(50);
+    soundEffect->setLoops(1000);
+    soundEffect->play();
+    */
 
     return a.exec();
 }

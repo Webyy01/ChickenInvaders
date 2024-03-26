@@ -10,14 +10,18 @@ CONFIG += c++17
 
 SOURCES += \
     bullet.cpp \
-    enemy.cpp \
+    chicken.cpp \
     main.cpp \
-    player.cpp
+    ship.cpp \
+    spawn.cpp \
+    stats.cpp
 
 HEADERS += \
     bullet.h \
-    enemy.h \
-    player.h
+    chicken.h \
+    ship.h \
+    spawn.h \
+    stats.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -28,3 +32,7 @@ DISTFILES += \
     ../../../Assignment 2 - Game/chicken.png \
     ../../../Assignment 2 - Game/red_laser.png \
     ../../../Assignment 2 - Game/ship.png
+
+RESOURCES += \
+    img.qrc \
+    sounds.qrc

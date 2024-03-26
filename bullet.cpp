@@ -1,29 +1,46 @@
-#include"bullet.h"
-#include <QGraphicsScene>
+#include "chicken.h"
+#include "stats.h"
+#include "bullet.h"
 #include <QTimer>
+#include <QGraphicsScene>
 #include <QList>
-#include <enemy.h>
-#include <player.h>
-#include <QPixmap>
-Bullet::Bullet() : QObject(), QGraphicsPixmapItem() {
+#include "stats.h"
+#include "spawn.h"
 
-    // *******  Setting the bullets' size ********
-    QPixmap pix ("C://Users//omars//Downloads//session 5 - game - Exercise_template//session 5 - game - Exercise_template//session 5 - game - Exercise//red_laser.png");
-    setPixmap(pix);
-        // *******  Generating the Bullets automatically ********
-    QTimer * timer = new QTimer();
-    connect(timer, SIGNAL(timeout()),this,SLOT (move()));
+Bullet::Bullet(): QObject(), QGraphicsPixmapItem()
+{
+    this->setPixmap(QPixmap(":/img/red_laser.png").scaled(40,40));
+
+    /*
+    audioOutput = new QAudioOutput();
+    soundEffect = new QMediaPlayer();
+    soundEffect->setSource(QUrl("qrc:/sounds/sounds/blaster-2-81267.mp3"));
+    soundEffect->setAudioOutput(audioOutput);
+    audioOutput->setVolume(50);
+    soundEffect->play();
+    */
+
+    QTimer * timer = new QTimer(this);
+    connect(timer,SIGNAL(timeout()),this,SLOT(move()));
     timer->start(50);
 }
 
-// Move function is used to 1-  move the bullet upwards
-// 2- Handle the collision of the bullets with enemies
-void Bullet:: move()
+void Bullet :: move()
 {
-    // *******  Getting the colliding items with the Bullet ********
-    QList <QGraphicsItem *> colliding_items = collidingItems();
-    for(int i = 0; i <colliding_items.size(); i++){
-        if(typeid(*(colliding_items[i])) == typeid(Enemy)){
+    QList<QGraphicsItem *> colliding_items = collidingItems();
+    int n = colliding_items.size();
+    for (int i = 0; i < n; ++i)
+    {
+        if (typeid(*(colliding_items[i])) == typeid(Chicken)){
+            Stats::increase();
+
+            int score = Stats::getScore();
+            if(score > 0 && score%10 == 0){
+                Spawn::increaseDifficulty();
+            }
+            //soundEffect->setSource(QUrl("qrc:/sounds/sounds/kill.mp3"));
+            //soundEffect->play();
+
             scene()->removeItem(colliding_items[i]);
             scene()->removeItem(this);
             delete colliding_items[i];
@@ -31,12 +48,12 @@ void Bullet:: move()
             return;
         }
     }
-    // *******  Moving the bullets upward ********
-    setPos(x(), y()-10);
-    if(pos().y()< 0){
+
+
+
+    setPos(x(),y()-10);
+    if (pos().y() + pixmap().height() < 0){
         scene()->removeItem(this);
         delete this;
     }
-
-
 }

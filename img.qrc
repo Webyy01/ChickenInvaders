@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/img">
+        <file>red_laser.png</file>
+        <file>ship.png</file>
+        <file>CI4_SuperChick.png</file>
+        <file>spaceBackground.png</file>
+    </qresource>
+</RCC>

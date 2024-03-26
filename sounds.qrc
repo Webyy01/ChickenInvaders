@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/sound">
+        <file>Explosion.m4a</file>
+        <file>Russian Pew pew.m4a</file>
+    </qresource>
+</RCC>

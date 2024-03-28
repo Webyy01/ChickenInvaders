@@ -45,25 +45,18 @@ int main(int argc, char *argv[])
 
     QGraphicsTextItem* scoreText = new QGraphicsTextItem();
     QGraphicsTextItem* healthText = new QGraphicsTextItem();
+    QGraphicsTextItem* diffText = new QGraphicsTextItem();
 
     scene->addItem(scoreText);
     scene->addItem(healthText);
+    scene->addItem(diffText);
 
     Stats::setHealthText(healthText);
     Stats::setScoreText(scoreText);
+    Stats::setDifficultyText(diffText);
 
     // Spawn
     Spawn spawn(scene);
-
-    /*
-    QAudioOutput* audioOutput = new QAudioOutput();
-    QMediaPlayer* soundEffect = new QMediaPlayer();
-    soundEffect->setSource(QUrl("qrc:/sounds/sounds/soundtrack.mp3"));
-    soundEffect->setAudioOutput(audioOutput);
-    audioOutput->setVolume(50);
-    soundEffect->setLoops(1000);
-    soundEffect->play();
-    */
 
     return a.exec();
 }

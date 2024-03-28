@@ -7,15 +7,17 @@
 
 int Stats::health = 3;
 int Stats::score = 0;
+int Stats::difficulty = 1;
 QGraphicsTextItem* Stats::healthText = nullptr;
 QGraphicsTextItem* Stats::scoreText = nullptr;
+QGraphicsTextItem* Stats::difficultyText = nullptr;
 
 void Stats::setHealthText(QGraphicsTextItem* hlthText) {
     healthText = hlthText;
     healthText->setFont(QFont("script", 22));
     healthText->setDefaultTextColor(Qt::white);
     healthText->setPlainText("Health: " + QString::number(health));
-    healthText->setPos(10,20);
+    healthText->setPos(10,20);    
 }
 
 void Stats::setScoreText(QGraphicsTextItem* scrText){
@@ -26,8 +28,20 @@ void Stats::setScoreText(QGraphicsTextItem* scrText){
     scoreText->setPos(10,60);
 }
 
+void Stats::setDifficultyText(QGraphicsTextItem* diffText){
+    difficultyText = diffText;
+    difficultyText->setFont(QFont("script", 22));
+    difficultyText->setDefaultTextColor(Qt::white);
+    difficultyText->setPlainText("Difficulty: " + QString::number(difficulty));
+    difficultyText->setPos(10,100);
+}
+
+void Stats::updateDifficultyText(){
+    difficultyText->setPlainText("Difficulty: " + QString::number(difficulty));
+}
+
 void Stats::increase(){
-    score++;
+    score+=difficulty;
     scoreText->setPlainText("Score: " + QString::number(score));
 }
 

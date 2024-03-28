@@ -3,6 +3,7 @@
 #include "chicken.h"
 #include <QTimer>
 #include <QGraphicsScene>
+#include "stats.h"
 
 QTimer* Spawn::timer = new QTimer();
 int Spawn::currentTime = 1300;
@@ -26,5 +27,7 @@ void Spawn::spawn(){
 void Spawn::increaseDifficulty(){
     Spawn::currentTime-=100;
     timer->start(currentTime);
+    Stats::difficulty++;
+    Stats::updateDifficultyText();
 }
 

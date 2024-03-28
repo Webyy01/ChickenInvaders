@@ -4,6 +4,7 @@
 #include <QGraphicsScene>
 #include <QDebug>
 #include "chicken.h"
+#include "stats.h"
 
 Ship::Ship() {
 
@@ -38,33 +39,30 @@ void Ship::keyPressEvent(QKeyEvent *event)
 
     else if(event->key() == Qt::Key_Space)
     {
+        if(Stats::difficulty == 1){
         Bullet * bullet = new Bullet();
         bullet->setPos(x()+30,y());
-        scene()->addItem(bullet);
+        scene()->addItem(bullet);}
+        else if(Stats::difficulty == 2){
+            Bullet * bullet1 = new Bullet();
+            Bullet * bullet2 = new Bullet();
+            bullet1->setPos(x()+10, y());
+            bullet2->setPos(x()+40, y());
+            scene()->addItem(bullet1);
+            scene()->addItem(bullet2);
+        }
+        else{
+            Bullet * bullet1 = new Bullet();
+            Bullet * bullet2 = new Bullet();
+            Bullet * bullet3 = new Bullet();
+            bullet1->setPos(x()+10, y());
+            bullet2->setPos(x()+25, y());
+            bullet3->setPos(x()+40, y());
+            scene()->addItem(bullet1);
+            scene()->addItem(bullet2);
+            scene()->addItem(bullet3);
+        }
     }
-
-    else if(event->key() == Qt::Key_2){
-        Bullet * bullet1 = new Bullet();
-        Bullet * bullet2 = new Bullet();
-        bullet1->setPos(x()+10, y());
-        bullet2->setPos(x()+40, y());
-        scene()->addItem(bullet1);
-        scene()->addItem(bullet2);
-    }
-
-    else if(event->key() == Qt::Key_3){
-        Bullet * bullet1 = new Bullet();
-        Bullet * bullet2 = new Bullet();
-        Bullet * bullet3 = new Bullet();
-        bullet1->setPos(x()+10, y());
-        bullet2->setPos(x()+25, y());
-        bullet3->setPos(x()+40, y());
-        scene()->addItem(bullet1);
-        scene()->addItem(bullet2);
-        scene()->addItem(bullet3);
-    }
-
-
 }
  // CreateChicken   function used to create the eneimes
 void Ship::createChicken()

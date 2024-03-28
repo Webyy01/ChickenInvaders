@@ -6,7 +6,7 @@
 class Bullet: public QObject, public QGraphicsPixmapItem
 {
 
-    Q_OBJECT
+    Q_OBJECT    
 public:
     Bullet();
 
